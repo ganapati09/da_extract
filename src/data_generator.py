@@ -56,5 +56,3 @@ def generate_data():
     df.to_parquet(file_path, index=False)
 
     print("Data saved successfully to data.parquet")
-
-generate_data()
