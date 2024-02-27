@@ -12,13 +12,13 @@ def generate_data():
     current_date = datetime.now().strftime("%Y-%m-%d")
 
     # Create the folder path
-    folder_path = os.path.join("../data", current_date)
+    folder_path = os.path.join("data", current_date)
 
     # Check if the folder exists, if not, create it
     if not os.path.exists(folder_path):
         os.makedirs(folder_path)
     # Generate fake data
-    num_records = 1000000  # You can adjust the number of records as per your requirement
+    num_records = 100  # You can adjust the number of records as per your requirement
     start_date = datetime.now() - timedelta(days=365*5)  # One year ago from now
     end_date = datetime.now()
 

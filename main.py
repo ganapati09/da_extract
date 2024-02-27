@@ -1,4 +1,5 @@
 from src import data_generator as dg, spark_session as ss, source_to_target as etl
+from src import multi_extract as extract
 import logging
 # Set up logging configuration
 logging.basicConfig(filename='logs/app.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -15,5 +16,6 @@ if __name__ == "__main__":
     etl.source_to_target(spark)
     logging.info("data loaded to successfully.")
 
+    extract.run_extact(spark)
     ss.stop_spark_session(spark)
     logging.info("Spark sesson killed.")

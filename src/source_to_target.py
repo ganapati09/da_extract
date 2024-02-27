@@ -6,7 +6,7 @@ from pyspark.sql.types import *
 
 import logging
 # Set up logging configuration
-logging.basicConfig(filename='logs/etl.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(filename=f'logs/etl.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 def source_to_target(spark):
     current_date = datetime.now().strftime("%Y-%m-%d")
@@ -34,7 +34,7 @@ def source_to_target(spark):
 
     df = spark.read \
             .schema(schema) \
-            .parquet(f"../data/{current_date}/data.parquet")
+            .parquet(f"data/{current_date}/data.parquet")
     # Convert the timestamp column to a proper timestamp
     df = df.withColumn("OrderDate", (df["OrderDate"] / 1e9).cast("timestamp")) \
         .withColumn("SubscriptionStartDate", (df["SubscriptionStartDate"] / 1e9).cast("timestamp"))
@@ -47,7 +47,7 @@ def source_to_target(spark):
 
     address_df = df.select("DeliveryAddress","address_id").distinct()
 
-    jdbc_url = f"jdbc:sqlserver://localhost:1433;database=pdf;"
+    jdbc_url = f"jdbc:sqlserver://localhost:1433;database=dw_stg;"
     properties = {
         "user": "pyspark_user",
         "password": "root",
